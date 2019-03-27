@@ -1,4 +1,4 @@
-# aiothrottler
+# aiothrottler [![CircleCI](https://circleci.com/gh/michalc/aiothrottler.svg?style=svg)](https://circleci.com/gh/michalc/aiothrottler) [![Test Coverage](https://api.codeclimate.com/v1/badges/e52e294a919c8974c133/test_coverage)](https://codeclimate.com/github/michalc/aiothrottler/test_coverage)
 
 Throttler for asyncio Python
 
