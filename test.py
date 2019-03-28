@@ -1,8 +1,8 @@
+import asyncio
 from asyncio import (
     Event,
     ensure_future,
     get_event_loop,
-    sleep,
 )
 from unittest import (
     TestCase,
@@ -111,13 +111,40 @@ class TestThrottler(TestCase):
                 task_c.cancel()
 
     @async_test
+    async def test_single_task(self):
+            loop = get_event_loop()
+
+            async def func(throttler, event_a, event_b):
+                await throttler()
+                await asyncio.sleep(1)
+                event_a.set()
+                await throttler()
+                event_b.set()
+
+            with FastForward(loop) as forward:
+                throttler = Throttler(2)
+
+                event_a = Event()
+                event_b = Event()
+                task = ensure_future(func(throttler, event_a, event_b))
+
+                # Yield to allow the sleep to be scheduled
+                await forward(0)
+                await forward(1)
+                await event_a.wait()
+
+                await forward(1)
+                await event_b.wait()
+
+                task.cancel()
+
+    @async_test
     async def test_tasks_cancelled(self):
             loop = get_event_loop()
 
             async def func(throttle, event):
                 await throttle
                 event.set()
-                await sleep(1)
 
             with FastForward(loop) as forward:
                 throttler = Throttler(1)
