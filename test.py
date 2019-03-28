@@ -2,7 +2,6 @@ from asyncio import (
     Event,
     ensure_future,
     get_event_loop,
-    sleep,
 )
 from unittest import (
     TestCase,
@@ -117,7 +116,6 @@ class TestThrottler(TestCase):
             async def func(throttle, event):
                 await throttle
                 event.set()
-                await sleep(1)
 
             with FastForward(loop) as forward:
                 throttler = Throttler(1)
