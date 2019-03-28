@@ -166,3 +166,28 @@ class TestThrottler(TestCase):
 
                 task_a.cancel()
                 task_d.cancel()
+
+    @async_test
+    async def test_final_task_cancelled(self):
+            loop = get_event_loop()
+
+            async def func(throttle, event):
+                await throttle
+                event.set()
+
+            with FastForward(loop) as forward:
+                throttler = Throttler(1)
+
+                event_a = Event()
+                task_a = ensure_future(func(throttler(), event_a))
+                task_b = ensure_future(func(throttler(), Event()))
+
+                await event_a.wait()
+
+                task_b.cancel()
+
+                await forward(1)
+
+                event_d = Event()
+                task_d = ensure_future(func(throttler(), event_d))
+                await event_d.wait()
