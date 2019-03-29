@@ -58,3 +58,14 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 loop.close()
 ```
+
+
+## Differences to alternatives
+
+- The API features a function to call to `await` its result [some use a context manager]
+
+- The API is imperative [some use a functional approach/higher-order function]
+
+- No polling is used [some use polling internally]
+
+- A _minimum interval between resolutions_ is used to throttle [rather that a _max resolutions per time interval_, which can cause an irregular pattern of resolutions]
