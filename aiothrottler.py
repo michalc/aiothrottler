@@ -1,6 +1,5 @@
 from asyncio import (
     Future,
-    TimerHandle,
     get_event_loop,
 )
 from collections import (
