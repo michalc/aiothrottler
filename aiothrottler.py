@@ -23,6 +23,8 @@ def Throttler(wait):
         nonlocal callback
         nonlocal last_resolved
 
+        callback = None
+
         while queued and queued[0].cancelled():
             queued.popleft()
 
@@ -33,8 +35,6 @@ def Throttler(wait):
 
         if queued:
             schedule_callback()
-        else:
-            callback = None
 
     def throttler():
         future = Future()
