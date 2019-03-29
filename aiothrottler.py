@@ -3,7 +3,7 @@ from asyncio import (
     get_event_loop,
 )
 from collections import (
-    deque
+    deque,
 )
 
 
