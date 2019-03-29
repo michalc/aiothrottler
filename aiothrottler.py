@@ -29,8 +29,7 @@ def Throttler(wait):
             queued.popleft()
 
         if queued:
-            future = queued.popleft()
-            future.set_result(None)
+            queued.popleft().set_result(None)
             last_resolved = loop.time()
 
         if queued:
