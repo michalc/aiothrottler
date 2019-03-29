@@ -8,7 +8,7 @@ def long_description():
 
 setuptools.setup(
     name='aiothrottler',
-    version='0.0.9',
+    version='0.0.10',
     author='Michal Charemza',
     author_email='michal@charemza.name',
     description='Throttler for asyncio Python',
