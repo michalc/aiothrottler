@@ -11,18 +11,18 @@ def Throttler(min_interval):
     loop = get_event_loop()
     queued = deque()
     last_resolved = loop.time() - min_interval
-    callback = None
+    resolve_callback = None
 
     def schedule_resolve():
-        nonlocal callback
+        nonlocal resolve_callback
         delay = max(0, min_interval - (loop.time() - last_resolved))
-        callback = loop.call_later(delay, resolve)
+        resolve_callback = loop.call_later(delay, resolve)
 
     def resolve():
-        nonlocal callback
+        nonlocal resolve_callback
         nonlocal last_resolved
 
-        callback = None
+        resolve_callback = None
 
         while queued and queued[0].cancelled():
             queued.popleft()
@@ -38,7 +38,7 @@ def Throttler(min_interval):
         future = Future()
         queued.append(future)
 
-        if callback is None:
+        if resolve_callback is None:
             schedule_resolve()
 
         return future
