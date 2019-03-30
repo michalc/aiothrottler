@@ -22,7 +22,8 @@ and then just before the piece(s) of code to be throttled, _call_ this and `awai
 
 ```python
 await throttler()
-# Execution will reach here every 0.5 seconds
+# There will be a gap of at least 0.5 seconds
+# between executions reaching this line
 ```
 
 
