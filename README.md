@@ -85,3 +85,5 @@ loop.close()
 - No polling is used [some use polling internally]
 
 - A _minimum interval between resolutions_ is used to throttle [rather that a _max resolutions per time interval_, which can cause an irregular pattern of resolutions]
+
+- The tests cover edge cases, such as asserting on throttling after tasks being throttled have been cancelled [some alternatives do not]
