@@ -15,6 +15,8 @@ pip install aiothrottler
 Create a shared `Throttler`, passing a minimum interval, e.g. `0.5` seconds
 
 ```python
+from aiothrottler import Throttler
+
 throttler = Throttler(min_interval=0.5)
 ```
 
