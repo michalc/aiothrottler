@@ -13,7 +13,7 @@ def Throttler(min_interval):
     last_resolved = loop.time() - min_interval
     callback = None
 
-    def schedule_callback():
+    def schedule_resolve():
         nonlocal callback
         delay = max(0, min_interval - (loop.time() - last_resolved))
         callback = loop.call_later(delay, resolve)
@@ -32,14 +32,14 @@ def Throttler(min_interval):
             last_resolved = loop.time()
 
         if queued:
-            schedule_callback()
+            schedule_resolve()
 
     def throttler():
         future = Future()
         queued.append(future)
 
         if callback is None:
-            schedule_callback()
+            schedule_resolve()
 
         return future
 
