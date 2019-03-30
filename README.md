@@ -15,7 +15,7 @@ pip install aiothrottler
 Create a shared `Throttler`, passing a minimum interval, e.g. `0.5` seconds
 
 ```python
-throttler = Throttler(0.5)
+throttler = Throttler(min_interval=0.5)
 ```
 
 and then just before the piece(s) of code to be throttled, _call_ this and `await` its result.
@@ -35,7 +35,7 @@ import time
 from aiothrottler import Throttler
 
 async def main():
-    throttler = Throttler(0.5)
+    throttler = Throttler(min_interval=0.5)
     await asyncio.gather(*[
         worker(throttler) for _ in range(10)
     ])
@@ -62,7 +62,7 @@ import time
 from aiothrottler import Throttler
 
 async def main():
-    throttler = Throttler(0.5)
+    throttler = Throttler(min_interval=0.5)
     for _ in range(10):
         await throttler()
         # Interval of at least 0.5 seconds between prints

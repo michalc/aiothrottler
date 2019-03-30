@@ -38,7 +38,7 @@ class TestThrottler(TestCase):
                 event.set()
 
             with FastForward(loop) as forward:
-                throttler = Throttler(2)
+                throttler = Throttler(min_interval=2)
 
                 event_a = Event()
                 task_a = ensure_future(func(throttler(), event_a))
@@ -78,7 +78,7 @@ class TestThrottler(TestCase):
                 event.set()
 
             with FastForward(loop) as forward:
-                throttler = Throttler(2)
+                throttler = Throttler(min_interval=2)
 
                 event_a = Event()
                 task_a = ensure_future(func(throttler(), event_a))
@@ -122,7 +122,7 @@ class TestThrottler(TestCase):
                 event_b.set()
 
             with FastForward(loop) as forward:
-                throttler = Throttler(2)
+                throttler = Throttler(min_interval=2)
 
                 event_a = Event()
                 event_b = Event()
@@ -147,7 +147,7 @@ class TestThrottler(TestCase):
                 event.set()
 
             with FastForward(loop) as forward:
-                throttler = Throttler(1)
+                throttler = Throttler(min_interval=1)
 
                 event_a = Event()
                 task_a = ensure_future(func(throttler(), event_a))
@@ -176,7 +176,7 @@ class TestThrottler(TestCase):
                 event.set()
 
             with FastForward(loop) as forward:
-                throttler = Throttler(1)
+                throttler = Throttler(min_interval=1)
 
                 event_a = Event()
                 task_a = ensure_future(func(throttler(), event_a))
