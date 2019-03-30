@@ -5,7 +5,7 @@ Throttler for asyncio Python
 
 ## Installation
 
-```base
+```bash
 pip install aiothrottler
 ```
 
