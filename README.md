@@ -10,6 +10,22 @@ pip install aiothrottler
 ```
 
 
+## Usage
+
+Create a shared `Throttler`, passing a minimum interval, e.g. `0.5` seconds
+
+```python
+throttler = Throttler(0.5)
+```
+
+and then just before the piece(s) of code to be throttled, _call_ this and `await` its result.
+
+```python
+await throttler()
+# Execution will reach here every 0.5 seconds
+```
+
+
 ## Example: multiple tasks throttled
 
 ```python
