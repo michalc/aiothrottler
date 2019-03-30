@@ -7,15 +7,15 @@ from collections import (
 )
 
 
-def Throttler(min_delay):
+def Throttler(min_interval):
     loop = get_event_loop()
     queued = deque()
-    last_resolved = loop.time() - min_delay
+    last_resolved = loop.time() - min_interval
     callback = None
 
     def schedule_callback():
         nonlocal callback
-        delay = max(0, min_delay - (loop.time() - last_resolved))
+        delay = max(0, min_interval - (loop.time() - last_resolved))
         callback = loop.call_later(delay, resolve)
 
     def resolve():
